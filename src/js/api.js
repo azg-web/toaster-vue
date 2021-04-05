@@ -21,27 +21,31 @@ const Api = (Vue, globalOptions = {}) => {
     clear() {
       eventBus.emit('toast-clear')
     },
-    success(message, options = {}) {
+    success(message, title, options = {}) {
       return this.open(Object.assign({}, {
         message,
+        title,
         type: 'success'
       }, options))
     },
-    error(message, options = {}) {
+    error(message, title, options = {}) {
       return this.open(Object.assign({}, {
         message,
+        title,
         type: 'error'
       }, options))
     },
-    warning(message, options = {}) {
+    warning(message, title, options = {}) {
       return this.open(Object.assign({}, {
         message,
+        title,
         type: 'warning'
       }, options))
     },
-    default(message, options = {}) {
+    default(message, title, options = {}) {
       return this.open(Object.assign({}, {
         message,
+        title,
         type: 'default'
       }, options))
     }

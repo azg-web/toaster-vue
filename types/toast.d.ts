@@ -13,7 +13,7 @@ export type ToastPosition =
   | 'bottom'
   | 'bottom-left'
 
-export type ToastType = 'success' | 'info' | 'error' | 'warning' | 'default'
+export type ToastType = 'success' | 'error' | 'warning' | 'default'
 
 export interface ToastOptions {
   message: string,
@@ -28,19 +28,17 @@ export interface ToastOptions {
 }
 
 export interface ToastApi {
-  open(message: string): ToastComponent
+  open(message: string, title?: string,): ToastComponent
 
   open(options: ToastOptions): ToastComponent
 
-  success(message: string, options?: ToastOptions): ToastComponent
+  success(message: string, title?: string, options?: ToastOptions): ToastComponent
 
-  error(message: string, options?: ToastOptions): ToastComponent
+  error(message: string, title?: string, options?: ToastOptions): ToastComponent
 
-  info(message: string, options?: ToastOptions): ToastComponent
+  warning(message: string, title?: string, options?: ToastOptions): ToastComponent
 
-  warning(message: string, options?: ToastOptions): ToastComponent
-
-  default(message: string, options?: ToastOptions): ToastComponent
+  default(message: string, title?: string, options?: ToastOptions): ToastComponent
 
   clear(): void
 }
