@@ -1,0 +1,154 @@
+<template>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar navbar-light bg-white shadow-sm mb-3">
+      <span class="navbar-brand mb-0">Vue.js Toast</span>
+      <ul class="navbar-nav ml-auto">
+
+      </ul>
+    </nav>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <div class="card">
+            <form class="card-body" method="post" @submit.prevent="show">
+
+              <div class="form-group">
+                <label>Message <code>(required)</code></label>
+                <input type="text" required class="form-control" v-model.trim="form.message" name="message"/>
+              </div>
+
+              <div class="form-group">
+                <label>Type</label>
+                <div>
+                  <div v-for="item in types" :key="item" class="custom-control custom-radio custom-control-inline">
+                    <input v-model="form.type" :value="item" type="radio" :id="`radio-type-${item}`"
+                           class="custom-control-input">
+                    <label class="custom-control-label text-capitalize" :for="`radio-type-${item}`">{{ item }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Duration <code>({{ form.duration / 1000 }} seconds)</code></label>
+                <input type="range" class="custom-range" min="0" step="1000" max="60000"
+                       v-model.number="form.duration">
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Dismissible</label>
+                    <div class="custom-control custom-checkbox">
+                      <input v-model="form.dismissible" type="checkbox" class="custom-control-input"
+                             id="checkbox-dismissible">
+                      <label class="custom-control-label" for="checkbox-dismissible">Dismiss on click</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <label>Queue</label>
+                    <div class="custom-control custom-checkbox">
+                      <input v-model="form.queue" type="checkbox" class="custom-control-input"
+                             id="checkbox-queue">
+                      <label class="custom-control-label" for="checkbox-queue">Wait for previous to dismiss before
+                        showing new</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Position</label>
+                <div>
+                  <div v-for="item in positions" :key="item" class="custom-control custom-radio custom-control-inline">
+                    <input v-model="form.position" :value="item" type="radio" :id="`radio-position-${item}`"
+                           class="custom-control-input">
+                    <label class="custom-control-label text-capitalize"
+                           :for="`radio-position-${item}`">{{ item }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <button type="submit" class="btn btn-primary">Show notification</button>
+              <button type="button" class="btn btn-outline-info" @click="showAll">Demo all</button>
+              <button type="button" class="btn btn-secondary" @click="clearAll">Hide all</button>
+
+            </form>
+          </div>
+        </div>
+
+        <aside class="col-md-4 mb-3">
+
+        </aside>
+      </div>
+
+    </main>
+
+  </div>
+</template>
+
+<script>
+import Vue from 'vue';
+import Plugin, {Positions} from '../src/index';
+import '../src/themes/default/index.scss'
+
+Vue.use(Plugin);
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      form: {
+        title: 'Title',
+        message: 'This is a sample message',
+        type: 'success',
+        duration: 10000,
+        dismissible: true,
+        queue: false,
+        position: 'bottom-right',
+        onClick: this.onClick,
+        onDismiss: this.onDismiss,
+      },
+      types: [
+        'success',
+        'error',
+        'warning',
+        'default',
+      ],
+      positions: Positions
+    }
+  },
+  components: {},
+  mounted() {
+    // Lets show some toasts on page load
+    this.showAll();
+  },
+  methods: {
+    showAll() {
+      this.types.forEach((type) => {
+        this.$toast.open({
+          message: 'Yet another toast notification!',
+          title: 'Title',
+          duration: this.form.duration,
+          type
+        })
+      })
+    },
+    onClick() {
+      console.log("User dismissed the notification.")
+    },
+    onDismiss() {
+      console.log("Toast was dismissed.")
+    },
+    show() {
+      this.$toast.open(this.form);
+    },
+    clearAll() {
+      this.$toast.clear()
+    }
+  }
+}
+</script>

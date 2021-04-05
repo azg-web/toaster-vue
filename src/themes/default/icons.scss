@@ -1,0 +1,33 @@
+.v-toast {
+  &__item {
+    opacity: 1;
+    min-height: 4em;
+
+    .v-toast__icon {
+      display: block;
+      width: 27px;
+      min-width: 27px;
+      height: 27px;
+      margin-left: 1em;
+      background: url(./icons/info.svg) no-repeat;
+    }
+
+    .v-toast__close {
+      width: 44px;
+      height: 44px;
+      background: url(./icons/close.svg) no-repeat;
+    }
+
+    &.v-toast__item--success .v-toast__icon {
+      background: url(./icons/success.svg) no-repeat;
+    }
+
+    &.v-toast__item--error .v-toast__icon {
+      background: url(./icons/error.svg) no-repeat;
+    }
+
+    &.v-toast__item--warning .v-toast__icon {
+      background: url(./icons/warning.svg) no-repeat;
+    }
+  }
+}

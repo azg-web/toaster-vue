@@ -1,0 +1,21 @@
+$toast-bg: () !default;
+$toast-bg: map-merge(
+  (
+    "success": #e6f9f4,
+    "warning": #fff8e7,
+    "error": #fff2f7,
+    "default": #ffffff
+  ),
+  $toast-bg
+);
+
+$toast-br: () !default;
+$toast-br: map-merge(
+  (
+    "success": #17c490,
+    "warning": #cf9b15,
+    "error": #cf336b,
+    "default": #1d2d50
+  ),
+  $toast-br
+);
